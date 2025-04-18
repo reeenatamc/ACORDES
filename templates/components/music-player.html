@@ -1,0 +1,25 @@
+
+<div class="w-100 rounded-4 p-3 shadow-sm" style="background-color: rgba(209, 185, 224);">
+    <h6 class="text-center text-dark">🎧 Reproductor</h6>
+    <div class="d-flex flex-column align-items-center mt-3">
+        <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+        <p id="trackTitle" class="text-dark mt-2">🎵 SoundHelix Song 1</p>
+
+        <div class="player-controls d-flex justify-content-center mb-3">
+            <button id="togglePlayBtn" class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">
+                <i id="toggleIcon" class="bi bi-play-fill fs-5"></i>
+            </button>
+        </div>
+
+        <div class="w-100">
+            <div class="progress custom-progress rounded-pill">
+                <div id="progressBar" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
+            </div>
+            <div class="d-flex justify-content-between small text-muted mt-1">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="d-flex flex-column align-items-start justify-content-start gap-3"
+     style="width: 25%; height: 100%; padding: 20px; background-color: #1e1e2f; border-radius: 20px;">
+    <div class="w-100 bg-light rounded-4 p-3 d-flex align-items-center gap-3">
+        <img src="{{ user.pfp.url }}" class="rounded-circle" alt="Perfil">
+        <span class="fw-bold">{{ user.username }}</span>
+    </div>
+
+    <div class="w-100 bg-secondary text-white rounded-4 p-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-house-door-fill me-2"></i>Inicio
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-music-note-list me-2"></i>Mi Música
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-person-circle me-2"></i>Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <i class="bi bi-gear-fill me-2"></i>Configuración
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% include 'components/music-player.html' %}
+</div>

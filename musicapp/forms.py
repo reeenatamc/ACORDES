@@ -1,25 +1,20 @@
-# forms.py
-
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User
 
-class UserRegistrationForm(forms.ModelForm):
-    password2 = forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)
+# Formulario de Registro
+class UserRegisterForm(UserCreationForm):
+    first_name = forms.CharField(max_length=100, label="First Name")
+    last_name = forms.CharField(max_length=100, label="Last Name")
+    email = forms.EmailField(max_length=100, label="Email")
+    phone = forms.CharField(max_length=100, required=False, label="Phone")
+    pfp = forms.ImageField(required=False, label="Profile Picture")
 
     class Meta:
         model = User
-        fields = ['name', 'last_name', 'email', 'username', 'password', 'phone', 'pfp']  # Campos que quieres mostrar
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone', 'pfp', 'password1', 'password2']
 
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password')
-        password2 = self.cleaned_data.get('password2')
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden.")
-        return password2
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])  # Guarda la contraseña en forma segura
-        if commit:
-            user.save()
-        return user
+# Formulario de Login
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=100, label="Username")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")

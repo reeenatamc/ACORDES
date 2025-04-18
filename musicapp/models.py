@@ -3,7 +3,7 @@ from .managers import UserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Permission, Group
 
 # Modelo de Usuario
-class User(AbstractBaseUser, PermissionsMixin):
+class User(models.Model):
     name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     pfp = models.ImageField(upload_to='users', null=True, blank=True)
@@ -13,34 +13,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=100, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)  # Si el usuario es admin
-    is_superuser = models.BooleanField(default=False)  # Para el superusuario
-
-    objects = UserManager()  # El UserManager personalizado
-
-    USERNAME_FIELD = 'email'  # Usamos el email para iniciar sesión
-    REQUIRED_FIELDS = ['username']  # Otros campos obligatorios
 
     def __str__(self):
         return self.username
-
-    # Aquí añadimos related_name para evitar la ambigüedad
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='custom_user_permissions',
-        blank=True
-    )
-
-    groups = models.ManyToManyField(
-        Group,
-        related_name='custom_user_groups',
-        blank=True
-    )
-
-
 # Modelo de Canción Creada
 class SongCreated(models.Model):
     song_name = models.CharField(max_length=100)
+    song_picture = models.ImageField(upload_to='songs', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
