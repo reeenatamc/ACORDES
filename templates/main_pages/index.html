@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background: linear-gradient(to right, rgba(106, 27, 154, 0.5), rgba(156, 39, 176, 0.5));"> <!-- Degradado y contenedor padre -->
+        <div class="rounded-5" style="width: 90%; height: 85%; padding-right: 4vh; background-color: rgba(26, 26, 46, 0.8); display: flex; justify-content: flex-end; align-items: center;"> <!-- Contenedor azul oscuro con alineación a la derecha y centrado vertical -->
+            <div class="rounded-5" style="width: 70%; height: 90%; background-color: #ffffff; display: flex;"> <!-- Contenedor blanco con display: flex -->
+
+                <!-- Contenedor 70% con tres contenedores internos -->
+                <div class="rounded-5" style="width: 70%; padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+                    <h2 class="text-left">Bienvenido {{ User.username }} !</h2>
+
+                    <!-- Tres contenedores dentro del 70% en una sola columna -->
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="rounded-5" style="background-color: #f4f4f4; padding: 20px;">
+                            <h4 class="text-left">Escribir un prompt</h4>
+                            <p>Escribe unas cuentas palabras y genera música increíble.</p>
+                            <input type="text" placeholder="Escribe tu prompt aquí..." style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc;">
+                        </div>
+                        <div style="background-color: #e0e0e0; padding: 20px;">
+                            <h4 class="text-left">Canciones generadas</h4>
+                            <p>Contenido del contenedor 2</p>
+                        </div>
+                        <div style="background-color: #d3d3d3; padding: 20px;">
+                            <h4 class="text-left">En tendencia</h4>
+                            <p>Contenido del contenedor 3</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Contenedor 30% -->
+                <div class="rounded-5" style="width: 30%; background-color: #f4f4f4; padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+                    <h3 class="text-center">Nuevo Contenedor</h3>
+                    <p class="text-center">Aquí puede ir contenido adicional, como una lista, imagen o botones.</p>
+
+                    <!-- Dos subcontenedores dentro del 30% en una sola columna -->
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="background-color: #c4c4c4; padding: 20px;">
+                            <h5 class="text-center">Subcontenedor 1</h5>
+                            <p>Contenido del subcontenedor 1</p>
+                        </div>
+                        <div style="background-color: #b3b3b3; padding: 20px;">
+                            <h5 class="text-center">Subcontenedor 2</h5>
+                            <p>Contenido del subcontenedor 2</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
