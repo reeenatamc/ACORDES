@@ -1,4 +1,4 @@
-# 🎶 ACORDES
+<h1 align="center">🎶 ACORDES</h1>
 
 Este proyecto es una aplicación web que permite a artistas generar música utilizando [AudioCraft](https://github.com/facebookresearch/audiocraft) de forma local. Su objetivo principal es brindar inspiración y herramientas a creadores que no cuentan con los recursos para acceder a estudios de producción o software costoso.
 
