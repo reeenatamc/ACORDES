@@ -1,20 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User
+from django.urls import reverse_lazy
+from django.views.generic import FormView
 
-# Formulario de Registro
-class UserRegisterForm(UserCreationForm):
-    first_name = forms.CharField(max_length=100, label="First Name")
-    last_name = forms.CharField(max_length=100, label="Last Name")
-    email = forms.EmailField(max_length=100, label="Email")
-    phone = forms.CharField(max_length=100, required=False, label="Phone")
-    pfp = forms.ImageField(required=False, label="Profile Picture")
+from .models import UserPrompt
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'phone', 'pfp', 'password1', 'password2']
-
-# Formulario de Login
-class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(max_length=100, label="Username")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+class PromptForm(forms.Form):
+    prompt = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Escribe algo...'
+    }))

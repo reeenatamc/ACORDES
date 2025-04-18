@@ -206,6 +206,11 @@ LOGIN_REDIRECT_URL = '/'  # Después de hacer login, redirige a esta URL
 LOGOUT_REDIRECT_URL = '/'  # Después de hacer logout, redirige a esta URL
 
 
+AUTH_USER_MODEL = 'musicapp.User'
+# En settings.py
+SESSION_COOKIE_AGE = 60 * 60 * 24  # 1 día
+
+
 
 
 
