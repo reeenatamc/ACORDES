@@ -1,113 +1,109 @@
-<h1 align="center">🎶 ACORDES</h1>
+<h1 align="center">🎶 CHORDS</h1>
 
-<p align="center"><em>“La música debe ser una posibilidad, no un privilegio.”</em></p>
-
----
-
-## 📝 Descripción del proyecto
-
-**ACORDES** es una aplicación web desarrollada con el objetivo de democratizar la creación musical a través de inteligencia artificial. Utiliza el modelo [AudioCraft](https://github.com/facebookresearch/audiocraft) —específicamente MusicGen— para generar composiciones musicales a partir de descripciones textuales. Todo el proceso se ejecuta de forma **local**, sin depender de servicios en la nube ni de plataformas de terceros.
-
-Este proyecto está construido con **Python 11**, aprovechando sus capacidades de rendimiento, sintaxis moderna y compatibilidad con bibliotecas de última generación.
+<p align="center"><em>"Music should be a possibility, not a privilege."</em></p>
 
 ---
 
-## 🧠 ¿Qué es AudioCraft?
+## 📝 Project Description
 
-[AudioCraft](https://github.com/facebookresearch/audiocraft) es una iniciativa de Meta AI que permite generar música mediante modelos de lenguaje y audio. En particular, **MusicGen** transforma texto en audio musical de manera sorprendentemente precisa. En ACORDES, esta herramienta se integra directamente al backend del servidor, garantizando independencia, privacidad y eficiencia.
+**CHORDS** is a web application developed with the goal of democratizing music creation through artificial intelligence. It uses the [AudioCraft](https://github.com/facebookresearch/audiocraft) model —specifically MusicGen— to generate musical compositions from textual descriptions. The entire process runs **locally**, without relying on cloud services or third-party platforms.
+
+This project is built with **Python 11**, leveraging its performance capabilities, modern syntax, and compatibility with cutting-edge libraries.
 
 ---
 
-## 🧩 Tecnologías utilizadas
+## 🧠 What is AudioCraft?
+
+[AudioCraft](https://github.com/facebookresearch/audiocraft) is an initiative by Meta AI that enables music generation using language and audio models. Specifically, **MusicGen** transforms text into musical audio with remarkable accuracy. In CHORDS, this tool is integrated directly into the server's backend, ensuring independence, privacy, and efficiency.
+
+---
+
+## 🧩 Technologies Used
 
 - **🐍 Backend:** [Django](https://www.djangoproject.com/)  
-  Framework robusto y escalable en Python que gestiona el procesamiento de texto, la lógica del servidor y la interacción con AudioCraft.
+  A robust and scalable Python framework that handles text processing, server logic, and interaction with AudioCraft.
 
 - **🖥 Frontend:** HTML5 + [Bootstrap](https://getbootstrap.com/)  
-  Interfaz web intuitiva y responsiva, orientada a la experiencia del usuario, que facilita la interacción con el sistema.
+  An intuitive and responsive web interface focused on user experience, facilitating interaction with the system.
 
-- **🎵 Generación musical:** [AudioCraft (MusicGen)](https://github.com/facebookresearch/audiocraft)  
-  Motor creativo de IA que interpreta las descripciones del usuario y genera pistas musicales.
+- **🎵 Music Generation:** [AudioCraft (MusicGen)](https://github.com/facebookresearch/audiocraft)  
+  An AI creative engine that interprets user descriptions and generates music tracks.
 
-- **⚙️ Lenguaje principal:** **Python 3.11**  
-  Se ha optado por esta versión por su comprobada estabilidad y compatibilidad con la versión actual de AudioCraft. Aunque no es la más reciente, garantiza un entorno robusto y plenamente funcional para el despliegue local del modelo.
-
-
----
-
-## 🎯 Objetivo del proyecto
-
-El propósito central de ACORDES es brindar una herramienta accesible, eficiente y profesional para la generación musical mediante inteligencia artificial, dirigida especialmente a:
-
-- Artistas independientes en busca de inspiración o demos rápidas.
-- Creadores de contenido que requieren música original sin depender de bancos de audio.
-- Aficionados y exploradores sonoros interesados en experimentar sin barreras técnicas ni económicas.
-
-Todo esto, desde un entorno **local**, sin requerimientos de pago ni conexión constante a servicios externos.
+- **⚙️ Main Language:** **Python 3.11**  
+  This version was chosen for its proven stability and compatibility with the current version of AudioCraft. While not the latest, it guarantees a robust and fully functional environment for local model deployment.
 
 ---
 
-## 🖼 Captura de pantalla 
+## 🎯 Project Objective
 
-> En proceso...
+The main goal of CHORDS is to provide an accessible, efficient, and professional tool for music generation using artificial intelligence, specifically aimed at:
+
+- Independent artists looking for inspiration or quick demos.
+- Content creators needing original music without relying on audio banks.
+- Hobbyists and sound explorers interested in experimenting without technical or economic barriers.
+
+All this, in a **local** environment, with no payment requirements or constant connection to external services.
 
 ---
 
-## ⚙️ Instalación
+## 🖼 Screenshot
 
-Siga los pasos a continuación para poner en funcionamiento el proyecto en su máquina local:
+> In progress...
 
-1. **Clonar el repositorio:**
+---
+
+## ⚙️ Installation
+
+Follow the steps below to get the project running on your local machine:
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/reeenatamc/ACORDES.git
    cd ACORDES
    ```
 
-2. **Asegurarse de tener instalado Python 11.**
+2. **Make sure you have Python 11 installed.**
 
-   Puede verificar su versión actual con:
+   You can check your current version with:
    ```bash
    python --version
    ```
 
-3. **Instalar las dependencias necesarias:**
+3. **Install the required dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Iniciar el servidor:**
+4. **Start the server:**
    ```bash
    python manage.py runserver
    ```
 
-5. **Acceder a la aplicación:**
+5. **Access the application:**
 
-   Abra su navegador en la siguiente URL:
+   Open your browser to the following URL:
    ```
    http://127.0.0.1:8000/
    ```
 
 ---
 
-## 🤝 Contribuciones
+## 🤝 Contributions
 
-Las contribuciones están abiertas y son bienvenidas. Si deseas colaborar, por favor realiza un fork del repositorio, crea una nueva rama con tus cambios y abre un pull request. Todo aporte que promueva la mejora de la experiencia musical será considerado.
-
----
-
-## 📄 Licencia
-
-Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo `LICENSE` para más información.
+Contributions are open and welcome. If you would like to collaborate, please fork the repository, create a new branch with your changes, and open a pull request. Any contribution that improves the musical experience will be considered.
 
 ---
 
-## 📬 Contacto
+## 📄 License
 
-Para dudas, sugerencias o propuestas, puedes escribir a: **ramaldonado8@utpl.edu.ec**
+This project is distributed under the MIT License. See the `LICENSE` file for more information.
 
+---
 
-<p align="center">Hecho con pasión, tecnología y convicción musical.</p>
+## 📬 Contact
 
+For questions, suggestions, or proposals, you can reach out at: **ramaldonado8@utpl.edu.ec**
+
+<p align="center">Made with passion, technology, and musical conviction.</p>
 
 by renata <3 !
-
