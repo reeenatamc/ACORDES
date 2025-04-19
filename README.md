@@ -1,47 +1,111 @@
 <h1 align="center">🎶 ACORDES</h1>
 
-Este proyecto es una aplicación web que permite a artistas generar música utilizando [AudioCraft](https://github.com/facebookresearch/audiocraft) de forma local. Su objetivo principal es brindar inspiración y herramientas a creadores que no cuentan con los recursos para acceder a estudios de producción o software costoso.
+<p align="center"><em>“La música debe ser una posibilidad, no un privilegio.”</em></p>
+
+---
+
+## 📝 Descripción del proyecto
+
+**ACORDES** es una aplicación web desarrollada con el objetivo de democratizar la creación musical a través de inteligencia artificial. Utiliza el modelo [AudioCraft](https://github.com/facebookresearch/audiocraft) —específicamente MusicGen— para generar composiciones musicales a partir de descripciones textuales. Todo el proceso se ejecuta de forma **local**, sin depender de servicios en la nube ni de plataformas de terceros.
+
+Este proyecto está construido con **Python 11**, aprovechando sus capacidades de rendimiento, sintaxis moderna y compatibilidad con bibliotecas de última generación.
+
+---
 
 ## 🧠 ¿Qué es AudioCraft?
 
-AudioCraft es un modelo desarrollado por Meta AI que permite generar música a partir de texto utilizando modelos como MusicGen. Este proyecto lo utiliza de forma **local**, sin depender de servicios externos ni de la nube.
+[AudioCraft](https://github.com/facebookresearch/audiocraft) es una iniciativa de Meta AI que permite generar música mediante modelos de lenguaje y audio. En particular, **MusicGen** transforma texto en audio musical de manera sorprendentemente precisa. En ACORDES, esta herramienta se integra directamente al backend del servidor, garantizando independencia, privacidad y eficiencia.
 
 ---
 
 ## 🧩 Tecnologías utilizadas
 
-- **🎛 Backend:** [Django](https://www.djangoproject.com/)  
-  Se encarga de manejar las peticiones, procesar los prompts de texto y generar los archivos de audio.
-  
-- **🖼 Frontend:** HTML5 + [Bootstrap](https://getbootstrap.com/)  
-  Interfaz sencilla y funcional que permite a los usuarios ingresar sus ideas y recibir música generada.
+- **🐍 Backend:** [Django](https://www.djangoproject.com/)  
+  Framework robusto y escalable en Python que gestiona el procesamiento de texto, la lógica del servidor y la interacción con AudioCraft.
 
-- **🎵 Generador de música:** [AudioCraft (MusicGen)](https://github.com/facebookresearch/audiocraft)  
-  Ejecutado localmente en el servidor, transforma descripciones en audio inspirado en la entrada textual del usuario.
+- **🖥 Frontend:** HTML5 + [Bootstrap](https://getbootstrap.com/)  
+  Interfaz web intuitiva y responsiva, orientada a la experiencia del usuario, que facilita la interacción con el sistema.
 
----
+- **🎵 Generación musical:** [AudioCraft (MusicGen)](https://github.com/facebookresearch/audiocraft)  
+  Motor creativo de IA que interpreta las descripciones del usuario y genera pistas musicales.
 
-## 🚀 Objetivo
+- **⚙️ Lenguaje principal:** **Python 3.11**  
+  Se ha optado por esta versión por su comprobada estabilidad y compatibilidad con la versión actual de AudioCraft. Aunque no es la más reciente, garantiza un entorno robusto y plenamente funcional para el despliegue local del modelo.
 
-El objetivo principal es ofrecer una herramienta de generación musical a:
-
-- Artistas independientes que buscan **inspiración sonora rápida**.
-- Creadores de contenido sin acceso a estudios o software profesional.
-- Personas con curiosidad musical que quieren experimentar.
-
-Todo esto **sin depender de la nube**, sin costos adicionales y fomentando la **libertad creativa**.
 
 ---
 
-## 📷 Captura de pantalla (opcional)
+## 🎯 Objetivo del proyecto
 
-*(Agrega aquí una imagen si deseas mostrar la interfaz de la app)*
+El propósito central de ACORDES es brindar una herramienta accesible, eficiente y profesional para la generación musical mediante inteligencia artificial, dirigida especialmente a:
+
+- Artistas independientes en busca de inspiración o demos rápidas.
+- Creadores de contenido que requieren música original sin depender de bancos de audio.
+- Aficionados y exploradores sonoros interesados en experimentar sin barreras técnicas ni económicas.
+
+Todo esto, desde un entorno **local**, sin requerimientos de pago ni conexión constante a servicios externos.
 
 ---
 
-## 🛠 Instalación
+## 🖼 Captura de pantalla *(opcional)*
 
-1. Clona el repositorio:
+> Puedes incluir aquí una imagen de la interfaz principal o del proceso de generación.
+
+---
+
+## ⚙️ Instalación
+
+Siga los pasos a continuación para poner en funcionamiento el proyecto en su máquina local:
+
+1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tuusuario/musicgen-app.git
-   cd musicgen-app
+   git clone https://github.com/reeenatamc/ACORDES.git
+   cd ACORDES
+   ```
+
+2. **Asegurarse de tener instalado Python 11.**
+
+   Puede verificar su versión actual con:
+   ```bash
+   python --version
+   ```
+
+3. **Instalar las dependencias necesarias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Iniciar el servidor:**
+   ```bash
+   python manage.py runserver
+   ```
+
+5. **Acceder a la aplicación:**
+
+   Abra su navegador en la siguiente URL:
+   ```
+   http://127.0.0.1:8000/
+   ```
+
+---
+
+## 🤝 Contribuciones
+
+Las contribuciones están abiertas y son bienvenidas. Si deseas colaborar, por favor realiza un fork del repositorio, crea una nueva rama con tus cambios y abre un pull request. Todo aporte que promueva la mejora de la experiencia musical será considerado.
+
+---
+
+## 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo `LICENSE` para más información.
+
+---
+
+## 📬 Contacto
+
+Para dudas, sugerencias o propuestas, puedes escribir a: **ramaldonado8@utpl.edu.ec**
+
+
+<p align="center">Hecho con pasión, tecnología y convicción musical.</p>
+```
+
