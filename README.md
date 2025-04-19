@@ -1,4 +1,4 @@
-<h1 align="center">🎶 CHORDS</h1>
+<h1 align="center">🎶 ACORDES </h1>
 
 <p align="center"><em>"Music should be a possibility, not a privilege."</em></p>
 
