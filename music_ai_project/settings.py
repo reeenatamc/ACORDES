@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'musicapp',
+    'rest_framework',
 
 ]
 
@@ -209,6 +210,10 @@ LOGOUT_REDIRECT_URL = '/'  # Después de hacer logout, redirige a esta URL
 AUTH_USER_MODEL = 'musicapp.User'
 # En settings.py
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 1 día
+
+INSTALLED_APPS += ['corsheaders']
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+CORS_ALLOW_ALL_ORIGINS = True  # O define CORS_ALLOWED_ORIGINS si quieres restringir
 
 
 
