@@ -16,8 +16,10 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.venvaudiocraft" />
+      <excludeFolder url="file://$MODULE_DIR$/.venvc" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.13 (ACORDES)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (ACORDES)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

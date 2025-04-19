@@ -40,8 +40,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 # Modelo de Canción Creada
 class SongCreated(models.Model):
-    song_name = models.CharField(max_length=100)
-    song_picture = models.ImageField(upload_to='songs', null=True, blank=True)
+    song_name = models.TextField(null=True, blank=True)
+    song_picture = models.ImageField(upload_to='picture_songs', null=True, blank=True)
+    audio_file = models.FileField(upload_to='songs', null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
