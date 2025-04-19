@@ -47,9 +47,9 @@ Todo esto, desde un entorno **local**, sin requerimientos de pago ni conexión c
 
 ---
 
-## 🖼 Captura de pantalla *(opcional)*
+## 🖼 Captura de pantalla 
 
-> Puedes incluir aquí una imagen de la interfaz principal o del proceso de generación.
+> En proceso...
 
 ---
 
@@ -107,5 +107,7 @@ Para dudas, sugerencias o propuestas, puedes escribir a: **ramaldonado8@utpl.edu
 
 
 <p align="center">Hecho con pasión, tecnología y convicción musical.</p>
-```
+
+
+by renata <3 !
 
