@@ -59,8 +59,8 @@ Siga los pasos a continuación para poner en funcionamiento el proyecto en su m�
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tuusuario/musicgen-app.git
-   cd musicgen-app
+   git clone https://github.com/reeenatamc/ACORDES.git
+   cd ACORDES
    ```
 
 2. **Asegurarse de tener instalado Python 11.**
@@ -105,7 +105,6 @@ Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo `LICENSE` 
 
 Para dudas, sugerencias o propuestas, puedes escribir a: **ramaldonado8@utpl.edu.ec**
 
----
 
 <p align="center">Hecho con pasión, tecnología y convicción musical.</p>
 ```
