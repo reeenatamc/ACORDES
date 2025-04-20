@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'musicapp',
     'rest_framework',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'corsheaders',
 
 ]
 
@@ -211,9 +214,19 @@ AUTH_USER_MODEL = 'musicapp.User'
 # En settings.py
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 1 día
 
-INSTALLED_APPS += ['corsheaders']
 MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
 CORS_ALLOW_ALL_ORIGINS = True  # O define CORS_ALLOWED_ORIGINS si quieres restringir
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',  # URL de tu app Angular
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+
 
 
 
