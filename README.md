@@ -48,7 +48,8 @@ All this, in a **local** environment, with no payment requirements or constant c
 
 ## 🖼 Screenshot
 
-> In progress...
+![image](https://github.com/user-attachments/assets/8f5444d6-b31c-4ad8-ad47-be274bb632d0)
+
 
 ---
 
