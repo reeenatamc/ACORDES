@@ -6,7 +6,7 @@
 
 ## 📝 Project Description
 
-**CHORDS** is a web application developed with the goal of democratizing music creation through artificial intelligence. It uses the [AudioCraft](https://github.com/facebookresearch/audiocraft) model —specifically MusicGen— to generate musical compositions from textual descriptions. The entire process runs **locally**, without relying on cloud services or third-party platforms.
+**ACORDES** is a web application developed with the goal of democratizing music creation through artificial intelligence. It uses the [AudioCraft](https://github.com/facebookresearch/audiocraft) model —specifically MusicGen— to generate musical compositions from textual descriptions. The entire process runs **locally**, without relying on cloud services or third-party platforms.
 
 This project is built with **Python 11**, leveraging its performance capabilities, modern syntax, and compatibility with cutting-edge libraries.
 
