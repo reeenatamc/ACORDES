@@ -48,7 +48,7 @@ All this, in a **local** environment, with no payment requirements or constant c
 
 ## 🖼 Screenshot
 
-![image](https://github.com/user-attachments/assets/ba563cc2-fad1-44b1-9381-5b80369c8072)
+![image](https://github.com/user-attachments/assets/0ca51fb1-92b3-466f-bec9-f2b941f66d30)
 
 
 ---
