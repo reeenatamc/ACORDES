@@ -1,0 +1,25 @@
+THIRD-PARTY NOTICES
+===================
+
+The MIT licence in LICENSE covers the original work in this repository only.
+The models this project runs are governed by their own, stricter terms.
+
+1. MusicGen weights (facebook/musicgen-small)  --  CC BY-NC 4.0
+--------------------------------------------------------------
+    https://huggingface.co/facebook/musicgen-small
+    Licence: Creative Commons Attribution-NonCommercial 4.0 International
+
+    NON-COMMERCIAL. The model weights may not be used for commercial purposes.
+    The MIT licence on this repository grants you rights to this source code;
+    it grants you no rights whatsoever to Meta's weights. Running this project
+    as a paid service would breach Meta's terms even though the code is MIT.
+
+2. AudioCraft (code)  --  MIT
+-----------------------------
+    https://github.com/facebookresearch/audiocraft
+
+3. GPT-2 (openai-community/gpt2)  --  modified MIT
+--------------------------------------------------
+    https://huggingface.co/openai-community/gpt2
+
+No model weights are bundled in this repository; they are downloaded at runtime.
