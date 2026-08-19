@@ -1,29 +1,94 @@
-from transformers import pipeline
+"""Wrappers around the local generation models.
+
+The models are expensive to load (MusicGen plus GPT-2 is several hundred MB and
+tens of seconds), so they are loaded lazily and kept on the module-level
+singleton returned by ``get_music_service``. A Celery worker therefore pays that
+cost once, on its first task, and not on every generation.
+
+Never call this from inside a request handler. Generation takes minutes; it
+belongs in ``musicapp.tasks``.
+"""
+
 import scipy.io.wavfile
-from audiocraft.models import MusicGen
-from audiocraft.data.audio import audio_write
+from transformers import pipeline
+
+MODEL_NAME = "facebook/musicgen-small"
+TITLE_MODEL_NAME = "gpt2"
 
 
 class MusicService:
+    """Loads each model on first use and holds it for the process lifetime."""
+
     def __init__(self):
-        self.synthesiser = pipeline("text-to-audio", model="facebook/musicgen-small")
-        self.model = MusicGen.get_pretrained("facebook/musicgen-small")
-        self.model.set_generation_params(duration=8)
-        self.generator = pipeline("text-generation", model="gpt2")
+        self._synthesiser = None
+        self._titler = None
+        self._musicgen = None
 
-    def generate_song_title(self, prompt: str):
-        title = self.generator(f"Generate a song title for: '{prompt}' without any explanation, no context, no extra words, no suggest, just the title.", max_new_tokens=10)
-        return title[0]['generated_text'].strip()
+    @property
+    def synthesiser(self):
+        if self._synthesiser is None:
+            self._synthesiser = pipeline("text-to-audio", model=MODEL_NAME)
+        return self._synthesiser
 
-    def generate_music(self, prompt: str, output_file: str = "musicgen_out.wav"):
+    @property
+    def titler(self):
+        if self._titler is None:
+            self._titler = pipeline("text-generation", model=TITLE_MODEL_NAME)
+        return self._titler
+
+    @property
+    def musicgen(self):
+        # Imported here so the module can be imported without pulling in
+        # audiocraft (and torch) in the web process.
+        from audiocraft.models import MusicGen
+
+        if self._musicgen is None:
+            self._musicgen = MusicGen.get_pretrained(MODEL_NAME)
+        return self._musicgen
+
+    def generate_song_title(self, prompt: str) -> str:
+        title = self.titler(
+            f"Generate a song title for: '{prompt}' without any explanation, "
+            "no context, no extra words, no suggest, just the title.",
+            max_new_tokens=10,
+        )
+        return title[0]["generated_text"].strip()
+
+    def generate_music(self, prompt: str, output_file: str) -> str:
+        """Generate a track and write it to ``output_file``. Returns the path."""
         music = self.synthesiser(prompt, forward_params={"do_sample": True})
-        scipy.io.wavfile.write(output_file, rate=music["sampling_rate"], data=music["audio"])
+        scipy.io.wavfile.write(
+            output_file, rate=music["sampling_rate"], data=music["audio"]
+        )
+        return output_file
 
-    def generate_music_audiocraft(self,prompts: list[str],duration: int = 8,output_prefix: str = "musicgen_audiocraft_track"):
+    def generate_music_audiocraft(
+        self, prompts: list[str], duration: int = 8, output_prefix: str = "track"
+    ) -> list[str]:
+        """Alternative backend via AudioCraft, with loudness normalisation.
 
-        self.model.set_generation_params(duration=duration)
-        wav_outputs = self.model.generate(prompts)
+        Not used by the default task -- kept because it produces better
+        normalised audio and may replace ``generate_music`` later.
+        """
+        from audiocraft.data.audio import audio_write
 
-        for idx, one_wav in enumerate(wav_outputs):
-            filename = f"{output_prefix}_{idx}.wav"
-            audio_write(filename, one_wav.cpu(), self.model.sample_rate, strategy="loudness")
+        self.musicgen.set_generation_params(duration=duration)
+        written = []
+        for idx, one_wav in enumerate(self.musicgen.generate(prompts)):
+            filename = f"{output_prefix}_{idx}"
+            audio_write(
+                filename, one_wav.cpu(), self.musicgen.sample_rate, strategy="loudness"
+            )
+            written.append(f"{filename}.wav")
+        return written
+
+
+_service = None
+
+
+def get_music_service() -> MusicService:
+    """Return the process-wide MusicService, creating it on first call."""
+    global _service
+    if _service is None:
+        _service = MusicService()
+    return _service

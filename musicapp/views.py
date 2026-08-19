@@ -1,6 +1,3 @@
-import os
-
-from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -9,11 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import FormView
+from django.http import JsonResponse
+from celery.result import AsyncResult
 
 from musicapp.forms import PromptForm
-from musicapp.models import UserPrompt, SongCreated
-from musicapp.services import MusicService
-from musicapp.utils import Email
+from musicapp.models import UserPrompt
+from musicapp.tasks import generate_song
 
 
 def register_view(request):
@@ -51,63 +49,24 @@ class PromptFormView(FormView):
     success_url = reverse_lazy('home')  # Redirige al home después de una acción exitosa
 
     def form_valid(self, form):
+        """Queue the generation and return straight away.
+
+        Generation loads several hundred megabytes of models and takes minutes.
+        Doing it here would hold an HTTP worker hostage for the whole time, so
+        the request only records the prompt and hands the work to Celery.
         """
-        Procesa el formulario cuando se envía correctamente.
-        Aquí se genera una canción a partir del 'prompt' ingresado por el usuario.
-        """
-        # Verifica si el usuario está autenticado
-        if self.request.user.is_authenticated:
-            # Obtiene el texto del prompt ingresado en el formulario
-            prompt_text = form.cleaned_data['prompt']
-
-            # Crea una entrada de UserPrompt para almacenar el prompt del usuario
-            user_prompt = UserPrompt.objects.create(user=self.request.user, prompt=prompt_text)
-
-            # Define las rutas donde se guardarán los archivos generados
-            base_output_path = f"media/generated_audio/user_{self.request.user.id}_prompt_{user_prompt.id}"
-            output_path = f"{base_output_path}_huggingFace.wav"  # Ruta para guardar la música generada por HuggingFace
-            ac_output_prefix = f"{base_output_path}_audioCraft"  # Prefijo para la salida de AudioCraft
-
-            # Asegura que el directorio de salida exista, si no, lo crea
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-            # Inicializa el servicio de música para generar la canción
-            music_service = MusicService()
-
-            # Genera un título para la canción usando el prompt
-            song_title = music_service.generate_song_title(prompt_text)
-            print(song_title)  # Imprime el título generado
-
-            # Genera la música con AudioCraft y guarda el archivo
-            music_service.generate_music_audiocraft(
-                prompts=[prompt_text],
-                duration=8,  # Duración de la canción en segundos
-                output_prefix=ac_output_prefix
-            )
-
-            # Genera la música con otro servicio y guarda el archivo en la ruta definida
-            music_service.generate_music(prompt_text, output_file=output_path)
-
-            # Asocia el archivo generado al modelo UserPrompt y guarda la entrada
-            user_prompt.audio_file = output_path
-            user_prompt.save()
-
-            # Crea un registro en SongCreated para almacenar la canción generada
-            song_created = SongCreated.objects.create(
-                song_name=song_title,  # Título de la canción (máximo 100 caracteres)
-                audio_file=os.path.relpath(output_path, start=settings.MEDIA_ROOT).replace("\\", "/"),  # Ruta relativa al archivo de audio
-                user=self.request.user,  # Usuario que creó la canción
-            )
-
-            # Renderiza el contenido dinámicamente.
-            html = Email.dynamic_email(song_created, 'components/music-player.html')
-            print(html)  # Puedes utilizar este HTML como quieras
-
-            # Si todo es correcto, redirige a la URL de éxito
-            return super().form_valid(form)
-        else:
-            # Si el usuario no está autenticado, redirige al login
+        if not self.request.user.is_authenticated:
             return redirect('login')
+
+        prompt_text = form.cleaned_data['prompt']
+        user_prompt = UserPrompt.objects.create(
+            user=self.request.user, prompt=prompt_text
+        )
+
+        task = generate_song.delay(user_prompt.id)
+        self.request.session['last_generation_task'] = task.id
+
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         """
@@ -122,3 +81,18 @@ class PromptFormView(FormView):
 def home(request):
 
     return render(request, 'main_pages/index.html')
+
+
+def generation_status(request, task_id):
+    """Report the state of a queued generation so the page can poll it."""
+    result = AsyncResult(task_id)
+    payload = {'state': result.state}
+
+    if result.successful():
+        payload['result'] = result.result
+    elif result.failed():
+        payload['error'] = 'generation failed'
+    elif result.state == 'PROGRESS':
+        payload['step'] = (result.info or {}).get('step')
+
+    return JsonResponse(payload)

@@ -232,3 +232,13 @@ REST_FRAMEWORK = {
 
 
 
+
+
+# --- Celery ---------------------------------------------------------------
+# Generation is far too slow and too memory-hungry to run inside a request,
+# so it runs on a worker. Point these at your broker before starting one.
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://localhost:6379/1")
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 60 * 30
+CELERY_WORKER_MAX_TASKS_PER_CHILD = 8

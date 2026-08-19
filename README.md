@@ -89,6 +89,45 @@ Follow the steps below to get the project running on your local machine:
 
 ---
 
+## How generation runs
+
+Generating eight seconds of audio loads several hundred megabytes of models and
+takes minutes on CPU. None of that can happen inside an HTTP request, so the web
+process only records the prompt and queues the work:
+
+```
+POST /  ->  UserPrompt row  ->  generate_song.delay()  ->  redirect
+                                        |
+                                   Celery worker
+                                   (models loaded once per process,
+                                    reused for every later task)
+                                        |
+                                   SongCreated row
+```
+
+The page then polls `GET /generation/<task_id>/status/`, which returns the task
+state and, once finished, the title and the path of the generated track.
+
+The models live on a module-level singleton in `musicapp/services.py` and are
+loaded lazily on first use, so a worker pays the load cost once rather than on
+every request.
+
+### Running it
+
+You need a broker. With Redis on the default port:
+
+```bash
+# terminal 1 -- web
+python manage.py runserver
+
+# terminal 2 -- worker
+celery -A music_ai_project worker --loglevel=info --concurrency=1
+```
+
+Keep `--concurrency=1` unless you have the RAM for a full copy of the models per
+worker process. Override `CELERY_BROKER_URL` and `CELERY_RESULT_BACKEND` if your
+broker lives elsewhere.
+
 ## 🤝 Contributions
 
 Contributions are open and welcome. If you would like to collaborate, please fork the repository, create a new branch with your changes, and open a pull request. Any contribution that improves the musical experience will be considered.

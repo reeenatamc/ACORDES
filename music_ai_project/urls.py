@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from musicapp.views import PromptFormView
+from musicapp.views import PromptFormView, generation_status
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -14,6 +14,9 @@ urlpatterns = [
 
   # Si quieres exponer tu formulario de prompts en la raíz
   path('', PromptFormView.as_view(), name='prompt-form'),
+
+  # Poll the state of a queued generation
+  path('generation/<str:task_id>/status/', generation_status, name='generation-status'),
 ]
 
 # Sirve media (y solo en DEBUG)

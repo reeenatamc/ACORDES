@@ -1,0 +1,6 @@
+# Vendored / generated assets should not decide the repository language.
+static/** linguist-vendored
+staticfiles/** linguist-vendored
+templates/** linguist-documentation
+*.min.js linguist-vendored
+*.min.css linguist-vendored
