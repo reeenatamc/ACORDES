@@ -7,10 +7,12 @@ cost once, on its first task, and not on every generation.
 
 Never call this from inside a request handler. Generation takes minutes; it
 belongs in ``musicapp.tasks``.
-"""
 
-import scipy.io.wavfile
-from transformers import pipeline
+Nothing heavy is imported at module level. ``musicapp.views`` reaches this
+module through ``musicapp.tasks``, so a torch import up here would load several
+hundred megabytes into every web process at startup for code it never runs.
+Each backend is imported inside the method that needs it.
+"""
 
 MODEL_NAME = "facebook/musicgen-small"
 TITLE_MODEL_NAME = "gpt2"
@@ -26,20 +28,22 @@ class MusicService:
 
     @property
     def synthesiser(self):
+        from transformers import pipeline
+
         if self._synthesiser is None:
             self._synthesiser = pipeline("text-to-audio", model=MODEL_NAME)
         return self._synthesiser
 
     @property
     def titler(self):
+        from transformers import pipeline
+
         if self._titler is None:
             self._titler = pipeline("text-generation", model=TITLE_MODEL_NAME)
         return self._titler
 
     @property
     def musicgen(self):
-        # Imported here so the module can be imported without pulling in
-        # audiocraft (and torch) in the web process.
         from audiocraft.models import MusicGen
 
         if self._musicgen is None:
@@ -56,6 +60,8 @@ class MusicService:
 
     def generate_music(self, prompt: str, output_file: str) -> str:
         """Generate a track and write it to ``output_file``. Returns the path."""
+        import scipy.io.wavfile
+
         music = self.synthesiser(prompt, forward_params={"do_sample": True})
         scipy.io.wavfile.write(
             output_file, rate=music["sampling_rate"], data=music["audio"]
