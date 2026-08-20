@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 120
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    */migrations/*,
+    staticfiles,
+    templates
+# E203 and W503 disagree with black by design.
+extend-ignore = E203,W503

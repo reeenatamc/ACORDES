@@ -1,0 +1,14 @@
+# Tooling configuration. ACORDES is a Django project that is run, not installed,
+# and its dependencies live in requirements.txt.
+#
+# The settings match the other Python repositories here so that moving between
+# them does not mean reformatting every file you touch.
+
+[tool.black]
+line-length = 120
+force-exclude = "/migrations/"
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip_glob = ["*/migrations/*", "*/staticfiles/*"]

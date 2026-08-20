@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.11"
+
+# There is deliberately no test job.
+#
+# requirements.txt pulls audiocraft from a git commit, plus torch, torchvision,
+# torchaudio, torchtext, xformers and transformers: several gigabytes, and
+# torchtext 0.16 is retired and no longer resolves cleanly. Installing that to
+# run musicapp/tests.py, which contains no tests, would buy a slow and brittle
+# build and prove nothing.
+#
+# When there are tests worth running, the honest way in is a job that installs
+# Django and the pure-Python dependencies only, and exercises the parts that do
+# not touch the model.
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install linters
+        run: pip install black==24.1.1 isort==5.13.2 flake8==7.0.0
+
+      - name: Byte-compile every module
+        run: |
+          find apis musicapp music_ai_project -name '*.py' \
+            ! -path '*/migrations/*' \
+            -print0 | xargs -0 python -m py_compile
+          python -m py_compile manage.py
+
+      - name: black
+        run: black --check --diff apis musicapp music_ai_project manage.py
+
+      - name: isort
+        run: isort --check-only --diff apis musicapp music_ai_project manage.py
+
+      - name: flake8
+        run: flake8 apis musicapp music_ai_project manage.py --count --statistics
