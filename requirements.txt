@@ -1,4 +1,4 @@
-﻿aiofiles==24.1.0
+aiofiles==24.1.0
 annotated-types==0.7.0
 antlr4-python3-runtime==4.9.3
 anyio==4.9.0
@@ -134,5 +134,6 @@ weasel==0.4.1
 websockets==15.0.1
 wrapt==1.17.2
 xformers==0.0.22.post7
-挊汥牥孹敲楤嵳㴽⸵⸴ਰ敲楤㵳㔽ㄮㄮ�
+celery[redis]==5.4.0
+redis==5.1.1
 python-dotenv
