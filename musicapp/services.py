@@ -63,9 +63,7 @@ class MusicService:
         import scipy.io.wavfile
 
         music = self.synthesiser(prompt, forward_params={"do_sample": True})
-        scipy.io.wavfile.write(
-            output_file, rate=music["sampling_rate"], data=music["audio"]
-        )
+        scipy.io.wavfile.write(output_file, rate=music["sampling_rate"], data=music["audio"])
         return output_file
 
     def generate_music_audiocraft(
@@ -82,9 +80,7 @@ class MusicService:
         written = []
         for idx, one_wav in enumerate(self.musicgen.generate(prompts)):
             filename = f"{output_prefix}_{idx}"
-            audio_write(
-                filename, one_wav.cpu(), self.musicgen.sample_rate, strategy="loudness"
-            )
+            audio_write(filename, one_wav.cpu(), self.musicgen.sample_rate, strategy="loudness")
             written.append(f"{filename}.wav")
         return written
 

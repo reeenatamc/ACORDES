@@ -35,9 +35,7 @@ def generate_song(self, user_prompt_id: int):
     self.update_state(state="PROGRESS", meta={"step": "audio"})
     service.generate_music(prompt_text, output_file=output_path)
 
-    relative_path = os.path.relpath(output_path, start=settings.MEDIA_ROOT).replace(
-        "\\", "/"
-    )
+    relative_path = os.path.relpath(output_path, start=settings.MEDIA_ROOT).replace("\\", "/")
 
     # UserPrompt has no audio_file field; SongCreated is what holds the result.
     song = SongCreated.objects.create(
